@@ -13,19 +13,23 @@ public class Enemy : MonoBehaviour
     bool isLive;
 
     Rigidbody2D rigid;
+    Collider2D coll;
+
     SpriteRenderer sprite;
     Animator anime;
-
+    WaitForFixedUpdate wait;
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        coll = GetComponent<Collider2D>();
         sprite = GetComponent<SpriteRenderer>();
         anime = GetComponent<Animator>();
+        wait = new WaitForFixedUpdate();
     }
 
     void FixedUpdate()
     {
-        if (!isLive)
+        if (!isLive || anime.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
         {
             return;
         }
@@ -50,6 +54,10 @@ public class Enemy : MonoBehaviour
     {
         target = GameManager.instance.player.GetComponent<Rigidbody2D>();
         isLive = true;
+        coll.enabled = true;
+        rigid.simulated = true;
+        sprite.sortingOrder = 2;
+        anime.SetBool("Dead", false);
         health = maxHelath;
     }
 
@@ -63,21 +71,35 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Bullet"))
+        if (!collision.CompareTag("Bullet") || !isLive)
         {
             return;
         }
 
         health -= collision.GetComponent<Bullet>().damage;
-
+        StartCoroutine(KnockBack());
         if(health > 0)
         {
-            // hit action
+            anime.SetTrigger("Hit");
         }
         else
         {
-            Dead();
+            isLive = false;
+            coll.enabled = false;
+            rigid.simulated = false;
+            sprite.sortingOrder = 1;
+            anime.SetBool("Dead", true);
+            GameManager.instance.kill++;
+            GameManager.instance.GetExp();
         }
+    }
+
+    IEnumerator KnockBack()
+    {
+        yield return wait; // 하나의 물리 프레임 딜레이
+        Vector3 plaeyrPos = GameManager.instance.player.transform.position;
+        Vector3 dirVector = transform.position - plaeyrPos;
+        rigid.AddForce(dirVector.normalized * 3, ForceMode2D.Impulse);
     }
 
     void Dead()
