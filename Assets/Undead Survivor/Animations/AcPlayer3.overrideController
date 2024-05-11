@@ -6,12 +6,12 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AcPlayer1
+  m_Name: AcPlayer3
   m_Controller: {fileID: 9100000, guid: 4510ddf5e749f5f4ea60c416690f448d, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 8830e4b35b5aeef40811569685e0fe55, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 3ef74441da5223d4db8355717c917283, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 3df0d5025cda1354b9681df892119691, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: e27c42d81d02cfb4481def0836470097, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: ab92241522df63a479724a82d3ae6c0d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 06c42021c883b73478bdad91dcd05758, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: b53b9c276bb00864691c92f0af727f97, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 98a606882c2377a4a8660cfbffe151a7, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 030fc71cd22646b4982fde63cb83f23c, type: 2}
