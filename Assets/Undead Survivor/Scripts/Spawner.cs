@@ -6,13 +6,15 @@ public class Spawner : MonoBehaviour
 {
     public Transform[] spawnPoint;
     public SpawnData[] spawnData;
+    public float levelTime;
 
     int level;
     float timer;
 
     void Awake()
     {
-        spawnPoint = GetComponentsInChildren<Transform>();    
+        spawnPoint = GetComponentsInChildren<Transform>();
+        levelTime = GameManager.instance.maxGameTime / spawnData.Length;
     }
 
     void Update()
